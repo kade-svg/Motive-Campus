@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="Motive Campus — a simple, beautiful school organiser.">
+  <title>Motive Campus</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-mark"><span class="brand-dot"></span><span class="brand-dot"></span><span class="brand-dot"></span></div>
+      <div class="loading-title">Motive Campus</div>
+      <div class="loading-subtitle">Getting your school day ready…</div>
+      <div class="loading-bar"><span></span></div>
+    </div>
+
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu">☰</button>
+      <div class="brand">
+        <div class="brand-icon">M</div>
+        <span>Motive Campus</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-button" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">◐</button>
+        <button class="profile-button" id="profileBtn" title="Profile"><span id="profileInitial">S</span></button>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+          <div class="section-label">Workspace</div>
+          <button class="nav-item active" data-view="home"><span>⌂</span> Overview</button>
+          <button class="nav-item" data-view="timetable"><span>▦</span> Timetable</button>
+          <button class="nav-item" data-view="classes"><span>◫</span> Classes</button>
+          <button class="nav-item" data-view="notes"><span>▤</span> Notes</button>
+        </div>
+        <div class="sidebar-section">
+          <div class="section-label">Quick actions</div>
+          <button class="nav-item" data-action="new-class"><span>＋</span> Add class</button>
+          <button class="nav-item" data-action="new-note"><span>✎</span> New note</button>
+        </div>
+        <div class="sidebar-spacer"></div>
+        <div class="sidebar-footer">
+          <div class="privacy-pill"><span>●</span> Stored on this device</div>
+        </div>
+      </aside>
+
+      <main class="main" id="main">
+        <section class="view active" id="view-home">
+          <div class="hero">
+            <div>
+              <p class="eyebrow">Your school, organised.</p>
+              <h1 id="greeting">Good morning.</h1>
+              <p class="hero-copy">Everything you need for classes, notes and your school week — in one calm place.</p>
+            </div>
+            <div class="hero-orb" aria-hidden="true"><span></span></div>
+          </div>
+
+          <div class="prompt-card">
+            <div>
+              <span class="prompt-label">Up next</span>
+              <strong id="nextClassText">Add your timetable to see what’s next.</strong>
+              <small id="nextClassMeta">Your schedule will appear here.</small>
+            </div>
+            <button class="button secondary" data-view-target="timetable">View timetable</button>
+          </div>
+
+          <div class="stats-grid">
+            <button class="stat-card" data-view-target="classes"><span class="stat-kicker">Classes</span><strong id="statClasses">0</strong><span>organised subjects</span></button>
+            <button class="stat-card" data-view-target="notes"><span class="stat-kicker">Notes</span><strong id="statNotes">0</strong><span>saved on this device</span></button>
+            <button class="stat-card" data-view-target="timetable"><span class="stat-kicker">Week</span><strong id="statLessons">0</strong><span>timetable entries</span></button>
+          </div>
+
+          <div class="section-heading">
+            <div><p class="eyebrow">Your workspace</p><h2>Keep moving.</h2></div>
+            <button class="text-button" data-view-target="classes">See all →</button>
+          </div>
+          <div class="dashboard-grid">
+            <div class="dashboard-card">
+              <div class="card-top"><h3>Recent notes</h3><span>▤</span></div>
+              <div id="recentNotes" class="mini-list"></div>
+            </div>
+            <div class="dashboard-card">
+              <div class="card-top"><h3>Your classes</h3><span>◫</span></div>
+              <div id="recentClasses" class="mini-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="view-timetable">
+          <div class="page-header">
+            <div><p class="eyebrow">Week at a glance</p><h1>Timetable</h1><p>Tap an empty slot to add a class, or tap an entry to edit it.</p></div>
+            <div class="page-actions"><button class="button secondary" id="clearTimetableBtn">Clear week</button></div>
+          </div>
+          <div class="timetable-wrap">
+            <div id="timetableGrid" class="timetable-grid"></div>
+          </div>
+          <div class="helper-note">Tip: timetable entries connect to the classes you create, so your schedule stays organised.</div>
+        </section>
+
+        <section class="view" id="view-classes">
+          <div class="page-header">
+            <div><p class="eyebrow">Everything in one place</p><h1>Classes</h1><p>Keep teachers, rooms, resources and class details together.</p></div>
+            <div class="page-actions"><button class="button primary" id="addClassBtn">＋ Add class</button></div>
+          </div>
+          <div id="classGrid" class="class-grid"></div>
+          <div id="classEmpty" class="empty-state hidden"><div class="empty-icon">◫</div><h3>No classes yet</h3><p>Add your first subject to start building your school workspace.</p><button class="button primary" data-action="new-class">Add your first class</button></div>
+        </section>
+
+        <section class="view" id="view-notes">
+          <div class="page-header">
+            <div><p class="eyebrow">Ideas, homework, reminders</p><h1>Notes</h1><p>Capture things quickly and find them later.</p></div>
+            <div class="page-actions"><button class="button primary" id="addNoteBtn">＋ New note</button></div>
+          </div>
+          <div class="note-toolbar">
+            <input id="noteSearch" class="search" placeholder="Search notes…" autocomplete="off">
+            <select id="noteFilter" class="select"><option value="all">All notes</option></select>
+          </div>
+          <div id="noteGrid" class="note-grid"></div>
+          <div id="noteEmpty" class="empty-state hidden"><div class="empty-icon">▤</div><h3>No notes yet</h3><p>Create a note for homework, revision, ideas or anything you want to remember.</p><button class="button primary" data-action="new-note">Create a note</button></div>
+        </section>
+      </main>
+    </div>
+
+    <nav class="mobile-nav">
+      <button class="mobile-nav-item active" data-view="home"><span>⌂</span><small>Home</small></button>
+      <button class="mobile-nav-item" data-view="timetable"><span>▦</span><small>Week</small></button>
+      <button class="mobile-nav-item" data-view="classes"><span>◫</span><small>Classes</small></button>
+      <button class="mobile-nav-item" data-view="notes"><span>▤</span><small>Notes</small></button>
+    </nav>
+  </div>
+
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});</script>
+</body>
+</html>

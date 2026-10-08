@@ -1,0 +1,10 @@
+{
+  "name": "Motive Campus",
+  "short_name": "Campus",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
+  "description": "A calm, local-first school organiser from Motive.",
+  "icons": [{"src":"favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
